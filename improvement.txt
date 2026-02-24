@@ -1,0 +1,7 @@
+[1st iteration]
+
+1. Problem: poor transcribing result by using base model of whisper.
+    Solution: use api of elevenlabs for transcribing.
+
+2. Problem: the text response is displayed on the screen before the voice response.
+    Solution: the voice response and the text response should be displayed simultaneously.

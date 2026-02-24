@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.mp3
+*.wav
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+.streamlit/

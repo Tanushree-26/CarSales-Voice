@@ -1,0 +1,22 @@
+1) user talks to the voice car-sales assistant
+2) assistant simply answers the user's questions w.r.t car sales
+3) assistant also has the ability to retain the information related the chats for each user or
+it could be for an active session of a user
+
+workflow:
+1) user is using voice to give input to the frontend
+2) the input gets converted to text using whisper base model (real-time)
+3) after analyzing the user's query, llm via gemini api will generate the response
+4) the response will be converted to speech using elevenlabs api
+5) the response would in real time automatic as soon as the user's query is processed
+6) store the conversation history for user in a session
+
+modules needed:
+1) streamlit based
+2) capture_voice_input: i) convert the voice to text using whisper base model
+                        ii) analyze when the user has finished speaking
+                        iii) process the text in real-time simultaneously-keep sending it to the llm
+3) llm_response: i) process the text in real-time being received from the capture_voice_input module
+                 ii) generate the response in real-time in a prompt format
+4) convert_speech_to_text: i) convert the speech to text using elevenlabs api with the help of the llm prompt given as a result
+    

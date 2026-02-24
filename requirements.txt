@@ -1,0 +1,8 @@
+streamlit
+google-genai
+elevenlabs
+sounddevice
+numpy
+scipy
+python-dotenv
+pyaudio

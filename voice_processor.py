@@ -17,7 +17,7 @@ class VoiceProcessor:
         self.client = ElevenLabs(api_key=self.api_key)
         self.audio_queue = queue.Queue()
         self.sample_rate = 16000
-        self.chunk_duration = 2  # seconds
+        self.chunk_duration = 10  # seconds
         self.chunk_samples = int(self.sample_rate * self.chunk_duration)
 
     def callback(self, indata, frames, time, status):
@@ -25,7 +25,7 @@ class VoiceProcessor:
             print(status, file=sys.stderr)
         self.audio_queue.put(indata.copy())
 
-    def record_until_silence(self, silence_threshold=500, silence_duration=1.5):
+    def record_until_silence(self, silence_threshold=500, silence_duration=3.0):
         """
         Record until silence is detected.
         """
@@ -57,10 +57,10 @@ class VoiceProcessor:
                 if silent_chunks > limit_chunks and len(audio_data) > (RATE / CHUNK):
                     break
                 
-                # Safety break after 15 seconds
-                if len(audio_data) > (15 * RATE / CHUNK):
+                # Safety break after 60 seconds
+                if len(audio_data) > (60 * RATE / CHUNK):
                     break
-                    
+        
         print("Finished recording.")
         audio_np = np.concatenate(audio_data).flatten()
         
@@ -73,8 +73,10 @@ class VoiceProcessor:
         try:
             transcription = self.client.speech_to_text.convert(
                 file=buffer,
-                model_id="scribe_v1", # ElevenLabs Scribe model
-                tag_audio_events=False
+                model_id="scribe_v2", # ElevenLabs Scribe model
+                tag_audio_events=True,
+                language_code="eng",
+                diarize=True
             )
             return transcription.text
         except Exception as e:
@@ -85,6 +87,9 @@ class VoiceProcessor:
         with open(file_path, "rb") as f:
             transcription = self.client.speech_to_text.convert(
                 file=f,
-                model_id="scribe_v1"
+                model_id="scribe_v2", # Model to use
+                tag_audio_events=True, # Tag audio events like laughter, applause, etc.
+                language_code="eng", # Language of the audio file. If set to None, the model will detect the language automatically.
+                diarize=True,
             )
             return transcription.text

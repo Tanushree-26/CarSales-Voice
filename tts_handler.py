@@ -29,6 +29,16 @@ class TTSHandler:
         )
         return response
 
+    def get_audio_bytes(self, response):
+        """
+        Collects the streaming response into a single bytes object.
+        """
+        audio_data = b""
+        for chunk in response:
+            if chunk:
+                audio_data += chunk
+        return audio_data
+
     def save_audio(self, response, filename="response.mp3"):
         with open(filename, "wb") as f:
             for chunk in response:

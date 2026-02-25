@@ -55,19 +55,17 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-def autoplay_audio(file_path):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <audio autoplay="true">
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
+def autoplay_audio(audio_bytes):
+    b64 = base64.b64encode(audio_bytes).decode()
+    md = f"""
+        <audio autoplay="true">
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+        """
+    st.markdown(
+        md,
+        unsafe_allow_html=True,
+    )
 
 # Voice Input Section
 st.write("---")
@@ -99,10 +97,10 @@ if st.button("🎤 Start Speaking"):
             # 2b. TTS Response - Generate audio from full text
             with st.spinner("Preparing voice guide..."):
                 audio_response = st.session_state.tts.text_to_speech_stream(full_response)
-                audio_file = st.session_state.tts.save_audio(audio_response)
+                audio_bytes = st.session_state.tts.get_audio_bytes(audio_response)
             
             # 2c. Play audio AND display text simultaneously
-            autoplay_audio(audio_file)
+            autoplay_audio(audio_bytes)
             
             # Simulated streaming for visual effect while audio plays
             displayed_text = ""

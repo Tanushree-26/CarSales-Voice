@@ -5,3 +5,21 @@
 
 2. Problem: the text response is displayed on the screen before the voice response.
     Solution: the voice response and the text response should be displayed simultaneously.
+
+[2nd iteration]
+
+1. Problem: the asr and the response generation is happening in multiple languages.
+    Solution: restrict the language to english.
+
+2. Problem: the response audio is being saved.
+    Solution: do not save the response audio.
+
+[3rd iteration]
+
+1. Problem: the input audio window is short, taking only 2-3 seconds of audio.
+    Solution: increase the input audio window size.
+
+2. Problem: the previous context is not being used.
+    Solution: use the previous context to generate the response.
+
+

@@ -1,13 +1,14 @@
 # CarSales-Voice Assistant 🚗🎙️
 
-An AI-powered voice assistant for car sales, built with Streamlit, OpenAI Whisper, Google Gemini, and ElevenLabs.
+An AI-powered voice assistant for car sales, built with Streamlit, ElevenLabs Scribe v2, Google Gemini 2.0, and ElevenLabs TTS.
 
 ## Features
-- **Voice-to-Text**: Uses OpenAI Whisper (base model) for real-time transcription.
-- **Smart Recording**: Automatically detects when you stop speaking.
-- **AI Brain**: Powered by Google Gemini 1.5 Flash for expert car sales advice.
-- **Text-to-Speech**: High-quality voice responses using ElevenLabs.
-- **Premium UI**: Clean and modern Streamlit interface.
+- **Advanced Voice-to-Text**: Uses **ElevenLabs Scribe v2** for high-accuracy, multilingual-capable (restricted to English) transcription.
+- **Smart Recording**: Automatically detects silence after 3 seconds of pause, with a 60-second safety window.
+- **Context-Aware AI**: Powered by **Google Gemini 2.0 Flash** with conversation history for personalized assistance.
+- **Privacy-First Audio**: High-quality voice responses are streamed directly to the browser from memory (no audio files saved to disk).
+- **English-Only Focus**: System is optimized to process and respond strictly in English for a consistent brand voice.
+- **Premium UI**: Clean, modern, and dark-themed Streamlit interface.
 
 ## Prerequisites
 - Python 3.9+
@@ -26,10 +27,10 @@ An AI-powered voice assistant for car sales, built with Streamlit, OpenAI Whispe
    ```bash
    pip install -r requirements.txt
    ```
-   *Note: On Windows, you might need to install `pyaudio` via `pip install PyAudio` (may require build tools) or use `conda`.*
+   *Note: On Windows, you might need to install `pyaudio` via `pip install PyAudio` (may require build tools) or use `conda`. You also need `sounddevice` and `scipy`.*
 
 3. Set up environment variables:
-   Copy `.env.example` to `.env` and add your API keys:
+   Create a `.env` file in the root directory and add your API keys:
    ```bash
    GOOGLE_API_KEY=your_key_here
    ELEVENLABS_API_KEY=your_key_here
@@ -43,7 +44,8 @@ streamlit run app.py
 ## How it Works
 1. Click **"Start Speaking"**.
 2. Speak your car-related query.
-3. The system detects silence when you finish.
-4. Whisper transcribes your voice.
-5. Gemini generates a sales-oriented response.
-6. ElevenLabs converts the response to audio and plays it automatically in your browser.
+3. The system waits for a 3-second silence to finish recording.
+4. **ElevenLabs Scribe v2** transcribes your voice into English.
+5. **Gemini 2.5 Flash** generates a sales-oriented response considering the current context.
+6. **ElevenLabs TTS** converts the response to audio and plays it automatically without saving any files to land.
+7. Text and voice are delivered simultaneously for a seamless experience.

@@ -47,5 +47,13 @@ streamlit run app.py
 3. The system waits for a 3-second silence to finish recording.
 4. **ElevenLabs Scribe v2** transcribes your voice into English.
 5. **Gemini 2.5 Flash** generates a sales-oriented response considering the current context.
-6. **ElevenLabs TTS** converts the response to audio and plays it automatically without saving any files to land.
+6. **ElevenLabs TTS** converts the response to audio and plays it automatically without saving any files to disk.
 7. Text and voice are delivered simultaneously for a seamless experience.
+
+## 🚀 Future Improvements
+
+| Improvement | Description |
+| :--- | :--- |
+| **Live Voice Chatbot** | Transition to a fully autonomous, continuous listening mode. This will eliminate the need to click the "Start" button for every interaction, allowing for a natural, hands-free conversation flow. |
+| **Real-time Inventory Access** | Integration with live dealership databases to provide instant pricing and availability of vehicles. |
+
